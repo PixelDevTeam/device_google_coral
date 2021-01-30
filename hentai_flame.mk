@@ -18,10 +18,6 @@
 # All components inherited here go to system image
 #
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/mainline_system.mk)
-
-# Enable mainline checking
-#PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := strict
 
 #
 # All components inherited here go to system_ext image
@@ -32,7 +28,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 #
 # All components inherited here go to product image
 #
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
+$(call inherit-product, vendor/hentai/build/product/hentai_product.mk)
 
 #
 # All components inherited here go to vendor image
@@ -41,24 +37,26 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
 
-$(call inherit-product, device/google/coral/device-flame.mk)
-$(call inherit-product-if-exists, vendor/google_devices/coral/proprietary/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/coral/prebuilts/device-vendor-flame.mk)
-
-# Exclude features that are not available on AOSP devices.
-#PRODUCT_COPY_FILES += \
-#    frameworks/native/data/etc/aosp_excluded_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/aosp_excluded_hardware.xml
+# Inherit AOSP stuff
+$(call inherit-product, vendor/hentai/config/common_telephony.mk)
+$(call inherit-product, device/google/flame/device-flame.mk)
+$(call inherit-product, vendor/google/flame/flame-vendor.mk)
 
 # Don't build super.img.
 PRODUCT_BUILD_SUPER_PARTITION := false
 
-# b/113232673 STOPSHIP deal with Qualcomm stuff later
-# PRODUCT_RESTRICT_VENDOR_FILES := all
-
-PRODUCT_PACKAGES += com.android.vndk.current.on_vendor
-
 PRODUCT_MANUFACTURER := Google
-PRODUCT_BRAND := Android
-PRODUCT_NAME := aosp_flame
+PRODUCT_BRAND := google
+PRODUCT_NAME := hentai_flame
 PRODUCT_DEVICE := flame
-PRODUCT_MODEL := AOSP on flame
+PRODUCT_MODEL := Pixel 4
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME="flame" \
+    PRIVATE_BUILD_DESC="flame-user 11 RQ1A.210105.003 7005429 release-keys"
+
+BUILD_FINGERPRINT := google/flame/flame:11/RQ1A.210105.003/7005429:user/release-keys
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.fingerprint=google/flame/flame:11/RQ1A.210105.003/7005429:user/release-keys
+
