@@ -85,6 +85,14 @@ TARGET_RECOVERY_UI_LIB := \
     librecovery_ui_pixel \
     libfstab
 
+# Reserve space for gapps install
+ifneq ($(WITH_GMS),true)
+BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 12288000
+BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := -1
+BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 1492992000
+BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 30720000
+endif
+
 # Enable chain partition for system.
 BOARD_AVB_VBMETA_SYSTEM := system system_ext
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
