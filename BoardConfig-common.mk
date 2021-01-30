@@ -70,7 +70,12 @@ AB_OTA_PARTITIONS += \
     dtbo \
     product \
     system_ext \
-    vbmeta_system
+    vbmeta_system \
+    vendor
+ifneq ($(PRODUCT_USE_DYNAMIC_PARTITIONS), true)
+    BOARD_VENDORIMAGE_PARTITION_SIZE := 744660992
+endif
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Partitions (listed in the file) to be wiped under recovery.
 TARGET_RECOVERY_WIPE := device/google/coral/recovery.wipe
