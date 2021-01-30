@@ -1010,3 +1010,6 @@ include hardware/google/pixel/thermal/device.mk
 -include hardware/google/pixel/power-libperfmgr/aidl/device.mk
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota_retrofit.mk)
+
+# Google Assistant
+PRODUCT_PRODUCT_PROPERTIES += ro.opa.eligible_device=true
