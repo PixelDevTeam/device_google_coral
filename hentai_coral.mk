@@ -18,10 +18,6 @@
 # All components inherited here go to system image
 #
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/mainline_system.mk)
-
-# Enable mainline checking
-#PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := strict
 
 #
 # All components inherited here go to system_ext image
@@ -32,7 +28,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 #
 # All components inherited here go to product image
 #
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
+$(call inherit-product, vendor/hentai/build/product/hentai_product.mk)
 
 #
 # All components inherited here go to vendor image
@@ -40,10 +36,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
 # TODO(b/136525499): move *_vendor.mk into the vendor makefile later
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
-
+# Inherit AOSP stuff
+$(call inherit-product, vendor/hentai/config/common_telephony.mk)
 $(call inherit-product, device/google/coral/device-coral.mk)
-$(call inherit-product-if-exists, vendor/google_devices/coral/proprietary/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/coral/prebuilts/device-vendor-coral.mk)
+$(call inherit-product, vendor/google/coral/coral-vendor.mk)
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
@@ -51,13 +47,18 @@ PRODUCT_COPY_FILES += \
 # Don't build super.img.
 PRODUCT_BUILD_SUPER_PARTITION := false
 
-# b/113232673 STOPSHIP deal with Qualcomm stuff later
-# PRODUCT_RESTRICT_VENDOR_FILES := all
-
-PRODUCT_PACKAGES += com.android.vndk.current.on_vendor
-
 PRODUCT_MANUFACTURER := Google
-PRODUCT_BRAND := Android
-PRODUCT_NAME := aosp_coral
+PRODUCT_BRAND := google
+PRODUCT_NAME := hentai_coral
 PRODUCT_DEVICE := coral
-PRODUCT_MODEL := AOSP on coral
+PRODUCT_MODEL := Pixel 4 XL
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME="coral" \
+    PRIVATE_BUILD_DESC="coral-user 11 RQ1A.210105.003 7005429 release-keys"
+
+BUILD_FINGERPRINT := google/coral/coral:11/RQ1A.210105.003/7005429:user/release-keys
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.fingerprint=google/coral/coral:11/RQ1A.210105.003/7005429:user/release-keys
+
