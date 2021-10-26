@@ -25,5 +25,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/hentai_flame.mk \
 
 COMMON_LUNCH_CHOICES := \
+    hentai_coral-user \
+    hentai_flame-user \
     hentai_coral-userdebug \
     hentai_flame-userdebug \
