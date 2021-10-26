@@ -32,7 +32,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 #
 # All components inherited here go to product image
 #
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
+$(call inherit-product, vendor/hentai/build/product/hentai_product.mk)
 
 #
 # All components inherited here go to vendor image
@@ -41,16 +41,12 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
 
-$(call inherit-product, device/google/coral/device-flame.mk)
+$(call inherit-product, device/google/coral/device-coral.mk)
 $(call inherit-product-if-exists, vendor/google_devices/coral/proprietary/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/coral/prebuilts/device-vendor-flame.mk)
-
-# Exclude features that are not available on AOSP devices.
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/aosp_excluded_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/aosp_excluded_hardware.xml
+$(call inherit-product-if-exists, vendor/google_devices/coral/prebuilts/device-vendor-coral.mk)
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
+    $(LOCAL_PATH)/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
 
 # Don't build super.img.
 PRODUCT_BUILD_SUPER_PARTITION := false
@@ -68,7 +64,7 @@ ifneq (REL,$(PLATFORM_VERSION_CODENAME))
 endif
 
 PRODUCT_MANUFACTURER := Google
-PRODUCT_BRAND := Android
-PRODUCT_NAME := aosp_flame
-PRODUCT_DEVICE := flame
-PRODUCT_MODEL := AOSP on flame
+PRODUCT_BRAND := google
+PRODUCT_NAME := hentai_coral
+PRODUCT_DEVICE := coral
+PRODUCT_MODEL := Pixel 4 XL
