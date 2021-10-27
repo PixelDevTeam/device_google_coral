@@ -1132,6 +1132,10 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.mapper@1.1.vendor \
     vendor.qti.hardware.display.mapper@2.0.vendor \
 
+# RRO
+PRODUCT_PACKAGES += \
+    SystemUIGoogleOverlayHentai
+
 # Security
 -include vendor/qcom/sm8150/proprietary/securemsm/config/keymaster_vendor_proprietary_board.mk
 -include vendor/qcom/sm8150/proprietary/securemsm/config/keymaster_vendor_proprietary_product.mk
