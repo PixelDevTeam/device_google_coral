@@ -20,9 +20,6 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_system.mk)
 
-# Enable mainline checking
-PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := strict
-
 #
 # All components inherited here go to system_ext image
 #
@@ -54,9 +51,6 @@ PRODUCT_COPY_FILES += \
 
 # Don't build super.img.
 PRODUCT_BUILD_SUPER_PARTITION := false
-
-# b/113232673 STOPSHIP deal with Qualcomm stuff later
-# PRODUCT_RESTRICT_VENDOR_FILES := all
 
 # b/189477034: Bypass build time check on uses_libs until vendor fixes all their apps
 PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
